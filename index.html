@@ -252,22 +252,17 @@
             if (!sessionStorage.getItem('firstLoadDone')) {
                 setRandomQuote();
                 
-                setTimeout(() => {
-                    quoteElement.style.opacity = 0;
-                    setTimeout(() => {
-                        setRandomQuote();
-                        quoteElement.style.opacity = 1;
-                    }, 500);
-                }, 4500);
-
+                // Просто ждем 4,5 секунд и скрываем лоадер
                 setTimeout(() => {
                     loader.classList.add('loader-hidden');
                     sessionStorage.setItem('firstLoadDone', 'true');
-                }, 9000);
+                }, 4500);
             } else {
+                // Если пользователь уже видел лоадер, не показываем его снова в этой сессии
                 loader.style.display = 'none';
             }
         });
     </script>
 </body>
 </html>
+
