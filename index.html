@@ -15,9 +15,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>АДВЕНТИСТЫ КАЖДЫЙ ДЕНЬ</title>
     
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="apple-touch-icon" href="logo.png">
-    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="/app/logo.png">
+    <link rel="apple-touch-icon" href="/app/logo.png">
+    <link rel="manifest" href="/app/manifest.json">
     <meta name="theme-color" content="#000000">
     
     <link rel="stylesheet" href="style.css">
@@ -192,10 +192,12 @@
     </div>
 
     <script>
-        // 1. Service Worker
+        // 1. ИСПРАВЛЕННАЯ РЕГИСТРАЦИЯ Service Worker ДЛЯ /app/
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error:', err));
+                navigator.serviceWorker.register('/app/sw.js', { scope: '/app/' })
+                    .then(() => console.log('SW зарегистрирован для /app/'))
+                    .catch(err => console.log('SW error:', err));
             });
         }
 
@@ -207,9 +209,11 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            // Показываем баннер через 3 сек только если лоадер уже был
             setTimeout(() => {
-                installBanner.style.display = 'block';
+                // Показываем баннер только если приложение не запущено как PWA
+                if (!window.matchMedia('(display-mode: standalone)').matches) {
+                    installBanner.style.display = 'block';
+                }
             }, 3000);
         });
 
@@ -223,7 +227,7 @@
             }
         });
 
-        // 3. Логика анимации загрузки и цитат (с защитой от повтора)
+        // 3. Логика анимации загрузки и цитат
         window.addEventListener('DOMContentLoaded', () => {
             const loader = document.getElementById('loader-wrapper');
             const quoteElement = document.getElementById('bible-quote');
@@ -245,11 +249,9 @@
                 refElement.innerText = randomQuote.ref;
             }
 
-            // ПРОВЕРКА: Показывали ли мы лоадер в этой сессии?
             if (!sessionStorage.getItem('firstLoadDone')) {
                 setRandomQuote();
                 
-                // Смена цитаты через 4.5 сек
                 setTimeout(() => {
                     quoteElement.style.opacity = 0;
                     setTimeout(() => {
@@ -258,13 +260,11 @@
                     }, 500);
                 }, 4500);
 
-                // Скрытие лоадера через 9 сек (как в твоем оригинале)
                 setTimeout(() => {
                     loader.classList.add('loader-hidden');
                     sessionStorage.setItem('firstLoadDone', 'true');
                 }, 9000);
             } else {
-                // Если уже заходили — убираем лоадер сразу
                 loader.style.display = 'none';
             }
         });
