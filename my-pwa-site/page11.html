@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106917530', 'ym');
+
+    ym(106917530, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/106917530" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пожертвования — На Стремянном</title>
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        .donation-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .donation-card h2 {
+            color: #e2b04a;
+            font-size: 1.2rem;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .description-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 18px;
+            color: #efefef;
+        }
+        .status-alert {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #ffd700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        .qr-download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            background: rgba(226, 176, 74, 0.2);
+            color: #e2b04a;
+            border-radius: 12px;
+            border: 1px solid #e2b04a;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .qr-download-btn:active {
+            background: #e2b04a;
+            color: #000;
+        }
+        .qr-download-btn i { margin-right: 10px; }
+
+        /* Стили Модального окна */
+        .qr-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .qr-content {
+            background: #111;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+            border: 1px solid #333;
+        }
+        .qr-content img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: white; /* Чтобы QR на темном фоне читался лучше */
+        }
+        .qr-content p { font-size: 0.9rem; color: #ccc; margin-bottom: 15px; }
+
+        .btn-group { display: flex; gap: 10px; }
+        .btn-modal {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .intro-block {
+            padding: 10px 15px 25px 15px;
+            text-align: center;
+            font-style: italic;
+            line-height: 1.5;
+            opacity: 0.9;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="logo.png" alt="Лого" class="main-logo">
+            </div>
+            <h1>ПОЖЕРТВОВАНИЯ</h1>
+        </header>
+
+        <div class="intro-block">
+            <p>
+                Вы можете участвовать в переводе пожертвований и десятины по реквизитам, указанным в QR-коде.<br><br>
+                Нажмите на кнопку, чтобы открыть код. Вы сможете <strong>отсканировать</strong> его другим устройством или <strong>поделиться</strong> файлом.
+            </p>
+        </div>
+
+        <nav class="links">
+            <div class="donation-card">
+                <h2><i class="fas fa-church"></i> Община «На Стремянном»</h2>
+                <div class="description-text">
+                    Реквизиты для перевода пожертвований на нужды общины<br><strong>«НА СТРЕМЯННОМ»</strong>.<br>
+                    <span class="status-alert">Работает круглосуточно!</span>
+                </div>
+                <button onclick="openQR('qr_community.png', 'Пожертвование На Стремянном')" class="qr-download-btn">
+                    <i class="fas fa-qrcode"></i> ОТКРЫТЬ QR-КОД
+                </button>
+            </div>
+
+            <div class="donation-card">
+                <h2><i class="fas fa-coins"></i> Десятина</h2>
+                <div class="description-text">
+                    Реквизиты для перевода десятины для всех общин<br>Московского Объединения.<br>
+                    <span class="status-alert">Работает круглосуточно!</span>
+                </div>
+                <button onclick="openQR('qr_tithe.png', 'Десятина')" class="qr-download-btn">
+                    <i class="fas fa-qrcode"></i> ОТКРЫТЬ QR-КОД
+                </button>
+            </div>
+
+            <div class="donation-card">
+                <h2><i class="fas fa-hand-holding-heart"></i> Благотворительные проекты</h2>
+                <div class="description-text">
+                    Реквизиты для перевода пожертвований на благотворительные проекты Московского Объединения.<br>
+                    <span class="status-alert">Работает только во время сборов!</span>
+                </div>
+                <button onclick="openQR('qr_projects.png', 'Благотворительные проекты')" class="qr-download-btn">
+                    <i class="fas fa-qrcode"></i> ОТКРЫТЬ QR-КОД
+                </button>
+            </div>
+
+            <div class="donation-card">
+                <h2><i class="fas fa-calendar-check"></i> Годовые дары</h2>
+                <div class="description-text">
+                    Реквизиты для перевода годовых даров для всех общин Московского Объединения.<br>
+                    <span class="status-alert">Работает с декабря по январь!</span>
+                </div>
+                <button onclick="openQR('qr_yearly.png', 'Годовые дары')" class="qr-download-btn">
+                    <i class="fas fa-qrcode"></i> ОТКРЫТЬ QR-КОД
+                </button>
+            </div>
+
+            <a href="index.html" class="btn back-btn" style="margin-top: 10px;">
+                <i class="fas fa-chevron-left"></i><span>ВЕРНУТЬСЯ</span>
+            </a>
+        </nav>
+
+        <footer>
+            <p>© 2026 Община на Стремянном</p>
+        </footer>
+    </div>
+
+    <div id="qrModal" class="qr-modal" onclick="closeQR()">
+        <div class="qr-content" onclick="event.stopPropagation()">
+            <img id="modalImg" src="" alt="QR Код">
+            <p id="modalTitle"></p>
+            <div class="btn-group">
+                <button class="btn-modal" onclick="shareQR()" style="background:#e2b04a; color:#000;">
+                    <i class="fas fa-share-alt"></i> ПОДЕЛИТЬСЯ
+                </button>
+                <button class="btn-modal" onclick="closeQR()" style="background:#333; color:#fff;">ЗАКРЫТЬ</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQR = "";
+        let currentTitle = "";
+
+        function openQR(imgSrc, title) {
+            currentQR = imgSrc;
+            currentTitle = title;
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('qrModal').style.display = 'flex';
+        }
+
+        function closeQR() {
+            document.getElementById('qrModal').style.display = 'none';
+        }
+
+        async function shareQR() {
+            try {
+                const response = await fetch(currentQR);
+                const blob = await response.blob();
+                const file = new File([blob], currentQR, { type: 'image/png' });
+
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: currentTitle,
+                        text: 'QR-код для перевода: ' + currentTitle
+                    });
+                } else {
+                    // Если Web Share API не поддерживает файлы, пробуем просто ссылкой
+                    await navigator.share({
+                        title: currentTitle,
+                        url: window.location.origin + '/' + currentQR
+                    });
+                }
+            } catch (err) {
+                alert("Чтобы сохранить, зажмите QR-код пальцем");
+            }
+        }
+    </script>
+</body>
+</html>

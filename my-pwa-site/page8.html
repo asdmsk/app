@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106917530', 'ym');
+
+    ym(106917530, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/106917530" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адреса и расписание — Община</title>
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Стили для карточки с информацией */
+        .info-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        .info-card h3 {
+            margin-top: 0;
+            color: #e2b04a;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .address-text {
+            margin: 10px 0;
+            font-style: normal;
+            display: block;
+            color: #efefef;
+        }
+        
+        /* Кнопки навигации (Карты и Навигатор) */
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .btn-mini {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+        .btn-mini i { margin-right: 8px; color: #ffeb3b; }
+        .btn-mini:active { background: #e2b04a; color: #000; transition: none; }
+        .btn-mini:active i { color: #000; }
+
+        /* Блок расписания */
+        .schedule-box {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .schedule-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .time-badge {
+            background: #e2b04a;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .year-info {
+            display: block;
+            text-align: center;
+            font-size: 0.75rem;
+            opacity: 0.5;
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="logo.png" alt="Логотип" class="main-logo">
+            </div>
+            <h1>КОНТАКТЫ И АДРЕСА</h1>
+        </header>
+
+        <div class="info-card">
+            <h3><i class="fas fa-church"></i> Духовный центр АСД</h3>
+            <address class="address-text">
+                Москва, Нагатинская ул., д. 9, стр. 3
+            </address>
+
+            <div class="nav-buttons">
+                <a href="https://yandex.ru/maps/?text=Москва, Нагатинская улица, 9с3" class="btn-mini" target="_blank">
+                    <i class="fas fa-map-marked-alt"></i> КАРТЫ
+                </a>
+                
+                <a href="https://yandex.ru/maps/?rtext=~55.679619,37.631525" class="btn-mini" target="_blank">
+                    <i class="fas fa-location-arrow"></i> НАВИГАТОР
+                </a>
+            </div>
+
+            <div class="schedule-box">
+                <p style="margin-bottom: 15px; font-weight: bold;">Расписание богослужений:</p>
+                
+                <div class="schedule-item">
+                    <strong>1. Международная община</strong><br>
+                    Начало: <span class="time-badge">10:30</span><br>
+                    <small style="opacity: 0.7;">(на русском и английском)</small>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>2. На Стремянном</strong><br>
+                    Начало суббота: <span id="stremTime" class="time-badge">...</span>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>3. Нагатинская община</strong><br>
+                    Начало суббота: <span id="nagatTime" class="time-badge">...</span>
+                </div>
+                
+                <span id="yearStatus" class="year-info"></span>
+            </div>
+        </div>
+
+        <nav class="links">
+            <div class="divider"><span>ДРУГИЕ АДРЕСА</span></div>
+            
+            <a href="https://mosadvent.ru/index.php/adout/churches" class="btn" target="_blank" rel="noopener">
+                <i class="fas fa-map-signs"></i><span>ОБЩИНЫ МОСКВЫ И ОБЛАСТИ</span>
+            </a>
+
+            <a href="https://church.esd.adventist.org/" class="btn" target="_blank" rel="noopener">
+                <i class="fas fa-search-location"></i><span>ОБЩИНЫ РОССИИ</span>
+            </a>
+
+            <a href="index.html" class="btn back-btn" style="margin-top: 15px;">
+                <i class="fas fa-arrow-left"></i><span>ВЕРНУТЬСЯ НА ГЛАВНУЮ</span>
+            </a>
+        </nav>
+
+        <footer>
+            <p>© 2026 Община на Стремянном</p>
+        </footer>
+    </div>
+
+    <script>
+        function calculateSchedule() {
+            const year = new Date().getFullYear();
+            const isEven = (year % 2 === 0);
+            
+            const stremLabel = document.getElementById('stremTime');
+            const nagatLabel = document.getElementById('nagatTime');
+            const statusLabel = document.getElementById('yearStatus');
+
+            if (isEven) {
+                stremLabel.innerText = "10:30";
+                nagatLabel.innerText = "14:30";
+            } else {
+                stremLabel.innerText = "14:30";
+                nagatLabel.innerText = "10:30";
+            }
+            
+            statusLabel.innerText = "Расписание актуально на " + year + " год";
+        }
+
+        window.onload = calculateSchedule;
+    </script>
+</body>
+</html>

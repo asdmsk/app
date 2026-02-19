@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106917530', 'ym');
+
+    ym(106917530, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/106917530" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Радио и ТВ — Община</title>
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        .media-section {
+            margin-bottom: 25px;
+        }
+        .media-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .media-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px 10px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: 0.3s;
+            font-size: 0.85rem;
+        }
+        .media-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: #e2b04a;
+        }
+        .media-btn:hover {
+            background: rgba(226, 176, 74, 0.15);
+            border-color: #e2b04a;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="logo.png" alt="Лого" class="main-logo">
+            </div>
+            <h1>РАДИО И ТЕЛЕВИДЕНИЕ</h1>
+        </header>
+
+        <nav class="links">
+            <a href="index.html" class="btn back-btn">
+                <i class="fas fa-arrow-left"></i><span>НА ГЛАВНУЮ</span>
+            </a>
+
+            <div class="media-section">
+                <div class="divider"><i class="fas fa-tv"></i><span> ТЕЛЕКАНАЛЫ</span></div>
+                <div class="media-grid">
+                    <a href="https://hls.tv.3angels.ru/stream.m3u8" class="media-btn" target="_blank">
+                        <i class="fas fa-broadcast-tower"></i>
+                        <span>Три Ангела</span>
+                    </a>
+                    <a href="http://live.tvhope.cdnvideo.ru/tvhope-pull/tvhope_1/playlist.m3u8" class="media-btn" target="_blank">
+                        <i class="fas fa-satellite-dish"></i>
+                        <span>Надежда</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="media-section">
+                <div class="divider"><i class="fas fa-microphone-alt"></i><span> ВЕЩАНИЕ</span></div>
+                <a href="https://golosnadezhdi.radioca.st/stream" class="btn" target="_blank">
+                    <i class="fas fa-radio"></i><span>РАДИО «ГОЛОС НАДЕЖДЫ»</span>
+                </a>
+            </div>
+
+            <div class="media-section">
+                <div class="divider"><i class="fas fa-book-open"></i><span> ОТКРЫТОЕ СЛОВО</span></div>
+                <div class="media-grid">
+                    <a href="https://radioslovo.net/bible-online-vz.html" class="media-btn" target="_blank">
+                        <i class="fas fa-scroll"></i>
+                        <span>Ветхий Завет</span>
+                    </a>
+                    <a href="https://radioslovo.net/bible-online.html" class="media-btn" target="_blank">
+                        <i class="fas fa-bible"></i>
+                        <span>Новый Завет</span>
+                    </a>
+                    <a href="https://radioslovo.net/" class="media-btn" target="_blank">
+                        <i class="fas fa-volume-up"></i>
+                        <span>Русское радио</span>
+                    </a>
+                    <a href="https://radioslovo.net/avtoradio.html" class="media-btn" target="_blank">
+                        <i class="fas fa-car"></i>
+                        <span>АВТО Радио</span>
+                    </a>
+                    <a href="https://radioslovo.net/instruments.html" class="media-btn full-width" target="_blank">
+                        <i class="fas fa-music"></i>
+                        <span>Инструментальная музыка</span>
+                    </a>
+                </div>
+            </div>
+
+            <a href="index.html" class="btn back-btn" style="margin-top: 10px;">
+                <i class="fas fa-chevron-left"></i><span>ВЕРНУТЬСЯ</span>
+            </a>
+        </nav>
+
+        <footer>
+            <p>© 2026 Община на Стремянном</p>
+        </footer>
+    </div>
+</body>
+</html>
