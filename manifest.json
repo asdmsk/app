@@ -2,19 +2,20 @@
   "name": "Адвентисты Каждый День",
   "short_name": "Адвентисты Каждый День",
   "description": "Адвентисты Каждый День",
-  "start_url": "/index.html",
+  "start_url": "/app/index.html",
+  "scope": "/app/",
   "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#000000",
+  "theme_color": "#e2b04a",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "/app/logo.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "logo.png",
+      "src": "/app/logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
