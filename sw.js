@@ -1,7 +1,7 @@
-const CACHE_NAME = 'obshchina-v15'; // Поднял версию, чтобы кэш обновился
+const CACHE_NAME = 'obshchina-v16';
 const GH_PATH = '/app';
 
-// Твой точный список файлов с учетом пути GitHub
+// Список файлов для офлайн-доступа
 const ASSETS_TO_CACHE = [
   `${GH_PATH}/`,
   `${GH_PATH}/index.html`,
@@ -22,18 +22,17 @@ const ASSETS_TO_CACHE = [
   `${GH_PATH}/manifest.json`
 ];
 
-// Установка: кэшируем всё по списку
+// Установка: кэшируем только наши локальные файлы
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Кэширование ресурсов для /app/...');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
   self.skipWaiting();
 });
 
-// Активация: удаляем старые кэши (v14 и ниже)
+// Активация: чистим память от старых версий
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -45,9 +44,10 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Обработка запросов (Stale-While-Revalidate)
+// Обработка запросов
 self.addEventListener('fetch', (event) => {
-  // Обрабатываем только запросы к нашему сайту
+  // ПРОВЕРКА ДЛЯ МЕТРИКИ И ВНЕШНИХ ССЫЛОК
+  // Если запрос идет НЕ на asdmsk.github.io, мы его НЕ трогаем
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
@@ -55,17 +55,17 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.match(event.request).then((cachedResponse) => {
-        // Запрос в сеть для обновления кэша
+        // Запрос в сеть для обновления кэша в фоне
         const fetchedResponse = fetch(event.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             cache.put(event.request, networkResponse.clone());
           }
           return networkResponse;
         }).catch(() => {
-          // Если сети нет, ничего не делаем, используем кэш
+          // При ошибке сети просто ничего не делаем
         });
 
-        // Отдаем из кэша сразу, или ждем сеть, если в кэше пусто
+        // Отдаем файл из кэша (мгновенно) или из сети (если файла нет в кэше)
         return cachedResponse || fetchedResponse;
       });
     })
