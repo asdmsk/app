@@ -1,4 +1,4 @@
-const CACHE_NAME = 'obshchina-v16';
+const CACHE_NAME = 'obshchina-v17';
 const GH_PATH = '/app';
 
 // Список файлов для офлайн-доступа
