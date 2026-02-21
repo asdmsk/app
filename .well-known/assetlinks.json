@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "ru.asdmsk.app",
+    "sha256_cert_fingerprints": ["ВАШ_ОТПЕЧАТОК_ИЗ_PLAY_CONSOLE"]
+  }
+}]
