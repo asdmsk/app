@@ -11,28 +11,22 @@
         ym(106917530, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/106917530" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <meta name="yandex-verification" content="55966f1946a30795" />
-    <meta name="google-site-verification" content="1aEPuIQtXmD2z8CYe5Q_157ew280_70Vz98AQX0seSY" />
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>АДВЕНТИСТЫ КАЖДЫЙ ДЕНЬ</title>
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://asdmsk.github.io/app/">
-    <meta property="og:title" content="АДВЕНТИСТЫ КАЖДЫЙ ДЕНЬ">
-    <meta property="og:description" content="Приложение с популярными ресурсами: Проповеди, трансляции, СШ, Чтения, Книги, Материалы.">
-    <meta property="og:image" content="https://asdmsk.github.io/app/logo.png">
-
-    <link rel="icon" type="image/png" href="/app/logo.png">
-    <link rel="apple-touch-icon" href="/app/logo.png">
-    <link rel="manifest" href="/app/manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#000000">
+
+    <title>Адвентисты Седьмого Дня в Москве | Ресурсы, Трансляции, Проповеди</title>
+    
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="apple-touch-icon" href="/logo.png">
+    <link rel="manifest" href="/manifest.json">
     
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* Стили лоадера внутри HTML для мгновенного отображения */
+        /* Стили лоадера */
         #loader-wrapper {
             position: fixed;
             top: 0; left: 0;
@@ -45,50 +39,44 @@
             align-items: center;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
-        .loader-content { 
-            width: 100%; 
-            max-width: 400px; 
-            padding: 20px; 
-            text-align: center; 
-        }
+        .loader-content { width: 100%; max-width: 400px; padding: 20px; text-align: center; }
         .spinner {
-            width: 50px; height: 50px;
-            border: 4px solid #222;
-            border-top: 4px solid #e2b04a;
+            width: 40px; height: 40px;
+            border: 3px solid #222;
+            border-top: 3px solid #e2b04a;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 30px;
+            margin: 0 auto 25px;
         }
-        #bible-quote {
-            color: #fff;
-            font-style: italic;
-            font-size: 1.1rem;
-            min-height: 100px;
-            line-height: 1.5;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease;
+        #bible-quote { color: #fff; font-style: italic; font-size: 1.1rem; min-height: 100px; line-height: 1.5; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; }
+        #bible-ref { color: #e2b04a; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loader-hidden { opacity: 0; visibility: hidden; }
+
+        /* Баннер субботы */
+        .sunset-container { 
+            background: rgba(226, 176, 74, 0.08); 
+            border: 1px solid #e2b04a; 
+            border-radius: 12px; 
+            padding: 12px; 
+            margin-bottom: 20px; 
+            text-align: center;
+            transition: box-shadow 0.3s;
         }
-        #bible-ref {
-            color: #e2b04a;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .loader-hidden {
-            opacity: 0;
-            visibility: hidden;
+        #sunset-label { color: #e2b04a; font-size: 0.65rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        #sunset-display { color: #fff; font-size: 1.8rem; font-weight: bold; }
+
+        /* Кнопка новых объявлений */
+        @keyframes glow-pulse {
+            0% { box-shadow: 0 0 5px rgba(226, 176, 74, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 20px rgba(226, 176, 74, 0.7); transform: scale(1.02); }
+            100% { box-shadow: 0 0 5px rgba(226, 176, 74, 0.4); transform: scale(1); }
         }
     </style>
 </head>
 <body>
+
     <div id="loader-wrapper">
         <div class="loader-content">
             <div class="spinner"></div>
@@ -99,94 +87,82 @@
 
     <div class="overlay"></div>
     <div class="container">
-        
         <header>
             <div class="logo-container">
                 <img src="logo.png" alt="Логотип" class="main-logo">
             </div>
             <h1>АДВЕНТИСТЫ КАЖДЫЙ ДЕНЬ</h1>
-            <p class="subtitle tight-header">Московское объединение</p>
+            <p class="subtitle tight-header">Московское объединение Церкви</p>
             <p class="subtitle tight-header">Христиан Адвентистов Седьмого дня</p>
         </header>
 
         <nav class="links">
+            <div class="sunset-container">
+                <div id="sunset-label">ЗАГРУЗКА...</div>
+                <div id="sunset-display">--:--</div>
+            </div>
+
+            <div id="ads-trigger-container" style="display: none; margin: 20px 0;">
+                <a href="page14.html" style="text-decoration: none;">
+                    <div style="
+                        background: linear-gradient(45deg, #e2b04a, #ffcc66);
+                        color: #000; padding: 18px; border-radius: 15px;
+                        font-weight: 900; text-align: center;
+                        animation: glow-pulse 2s infinite;
+                        display: flex; align-items: center; justify-content: center; gap: 12px;
+                        cursor: pointer;
+                    ">
+                        <i class="fas fa-bullhorn" style="font-size: 1.3rem;"></i>
+                        ЕСТЬ НОВЫЕ ОБЪЯВЛЕНИЯ!
+                    </div>
+                </a>
+            </div>
+
             <a href="https://kniga-knig.info/study/pqtchgl-fjtrylfrdaos" class="btn" target="_blank" rel="noopener">
                 <i class="fas fa-book-open"></i><span>ШКОЛА БИБЛИИ</span>
             </a>
-
-            <a href="page1.html" class="btn">
-                <i class="fas fa-play-circle"></i><span>ВИДЕОЗАПИСИ</span>
-            </a>
-
+            <a href="page1.html" class="btn"><i class="fas fa-play-circle"></i><span>ВИДЕО ОБЩИНЫ "НА СТРЕМЯННОМ"</span></a>
             <a href="https://t.me/+-KjH6rEZgDY0MjBi" class="btn" target="_blank" rel="noopener">
                 <i class="fab fa-telegram-plane"></i><span>АДВЕНТИСТЫ КАЖДЫЙ ДЕНЬ</span>
             </a>
 
-            <div class="divider"><span>ТРАНСЛЯЦИИ</span></div>
-
-            
-            <a href="page3.html" class="btn">
-                <i class="fas fa-broadcast-tower"></i><span>ПРЯМЫЕ ТРАНСЛЯЦИИ RUTUBE</span>
-            </a>
-
-<a href="page2.html" class="btn">
-                <i class="fab fa-youtube"></i><span>ПРЯМЫЕ ТРАНСЛЯЦИИ YOUTUBE</span>
-            </a>
-
+            <div class="divider"><span>ТРАНСЛЯЦИИ ОБЩИН</span></div>
+            <a href="page3.html" class="btn"><i class="fas fa-broadcast-tower"></i><span>ПРЯМЫЕ ТРАНСЛЯЦИИ RUTUBE</span></a>
+            <a href="page2.html" class="btn"><i class="fab fa-youtube"></i><span>ПРЯМЫЕ ТРАНСЛЯЦИИ YOUTUBE</span></a>
 
             <div class="divider"><span>ДУХОВНЫЕ РЕСУРСЫ</span></div>
-
-            <a href="page4.html" class="btn">
-                <i class="fas fa-calendar-check"></i><span>ЕЖЕДНЕВНЫЕ ЧТЕНИЯ И КНИГИ</span>
-            </a>
-
-            <a href="page5.html" class="btn">
-                <i class="fas fa-users"></i><span>СУББОТНЯЯ ШКОЛА</span>
-            </a>
-
-            <a href="page6.html" class="btn">
-                <i class="fas fa-microphone"></i><span>ПРОПОВЕДИ</span>
-            </a>
-
-            <a href="page8.html" class="btn">
-                <i class="fas fa-map-marked-alt"></i><span>АДРЕСА ОБЩИН РОССИИ</span>
-            </a>
-
-            <a href="page9.html" class="btn">
-                <i class="fab fa-google-play"></i><span>ПРИЛОЖЕНИЯ ДЛЯ СМАРТФОНА</span>
-            </a>
-
-            <a href="page10.html" class="btn">
-                <i class="fas fa-video"></i><span>РАДИО И ТЕЛЕВИДЕНИЕ</span>
-            </a>
+            <a href="page4.html" class="btn"><i class="fas fa-calendar-check"></i><span>ЕЖЕДНЕВНЫЕ ЧТЕНИЯ И КНИГИ</span></a>
+            <a href="page5.html" class="btn"><i class="fas fa-users"></i><span>СУББОТНЯЯ ШКОЛА</span></a>
+            <a href="page6.html" class="btn"><i class="fas fa-microphone"></i><span>ПРОПОВЕДИ</span></a>
+            <a href="page8.html" class="btn"><i class="fas fa-map-marked-alt"></i><span>АДРЕСА ОБЩИН РОССИИ</span></a>
+            <a href="page9.html" class="btn"><i class="fab fa-google-play"></i><span>ПРИЛОЖЕНИЯ ДЛЯ СМАРТФОНА</span></a>
+            <a href="page10.html" class="btn"><i class="fas fa-video"></i><span>РАДИО И ТЕЛЕВИДЕНИЕ</span></a>
 
             <div class="divider"><span>ПОДДЕРЖКА И СОЦСЕТИ</span></div>
-
-            <a href="page11.html" class="btn">
-                <i class="fas fa-hand-holding-usd"></i><span>ПОЖЕРТВОВАНИЯ</span>
-            </a>
-
-            <a href="http://vk.com/stremianka" class="btn" target="_blank" rel="noopener">
-                <i class="fab fa-vk"></i><span>МЫ В ВКОНТАКТЕ</span>
-            </a>
-
-            <a href="http://ok.ru/stremianka" class="btn" target="_blank" rel="noopener">
-                <i class="fab fa-odnoklassniki"></i><span>МЫ В ОДНОКЛАССНИКАХ</span>
-            </a>
+            <a href="page11.html" class="btn"><i class="fas fa-hand-holding-usd"></i><span>ПОЖЕРТВОВАНИЯ</span></a>
+            <a href="http://vk.com/stremianka" class="btn" target="_blank" rel="noopener"><i class="fab fa-vk"></i><span>МЫ В ВКОНТАКТЕ</span></a>
+            <a href="http://ok.ru/stremianka" class="btn" target="_blank" rel="noopener"><i class="fab fa-odnoklassniki"></i><span>МЫ В ОДНОКЛАССНИКАХ</span></a>
 
             <div class="divider"><span>ДОПОЛНИТЕЛЬНО</span></div>
-
-            <a href="page12.html" class="btn">
-                <i class="fas fa-heartbeat"></i><span>ЦЕНТРЫ ЗДОРОВЬЯ</span>
-            </a>
-
-            <a href="page13.html" class="btn">
-                <i class="fas fa-lock"></i><span>ДЛЯ ОБЩИНЫ</span>
-            </a>
+            <a href="page12.html" class="btn"><i class="fas fa-heartbeat"></i><span>ЦЕНТРЫ ЗДОРОВЬЯ</span></a>
+            <a href="page13.html" class="btn"><i class="fas fa-lock"></i><span>ДЛЯ ОБЩИНЫ</span></a>
         </nav>
 
         <footer>
-            <p>© 2026 Община на Стремянном</p>
+            <p>© <span id="year"></span> Община на Стремянном</p>
+            <div class="contact-footer" style="text-align: center; margin-top: 30px; padding: 20px; border-top: 1px dashed #e2b04a;">
+                <p style="color: #e2b04a; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 15px; font-weight: bold;">НАПИШИТЕ НАМ:</p>
+                <div style="margin-bottom: 10px;">
+                    <a href="mailto:Info@asdmsk.ru" style="color: #fff; text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fas fa-envelope" style="color: #e2b04a;"></i> Info@asdmsk.ru
+                    </a>
+                </div>
+                <div>
+                    <a href="https://t.me/+79999750250" target="_blank" rel="noopener" style="color: #fff; text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fab fa-telegram" style="color: #e2b04a;"></i> Telegram: +7 (999) 975-02-50
+                    </a>
+                </div>
+            </div>
         </footer>
     </div>
 
@@ -195,79 +171,182 @@
             <img src="logo.png" style="width: 45px; height: 45px; border-radius: 10px; border: 1px solid #333;">
             <div style="flex: 1; text-align: left;">
                 <p style="font-size: 0.9rem; font-weight: bold; margin: 0;">Установите приложение</p>
-                <p style="font-size: 0.7rem; color: #888; margin: 0;">Для быстрого доступа к материалам</p>
+                <p style="font-size: 0.7rem; color: #888; margin: 0;">Для быстрого доступа</p>
             </div>
-            <button id="btn-install" style="background: #e2b04a; border: none; padding: 8px 12px; border-radius: 20px; color: black; font-weight: bold; font-size: 0.75rem; cursor: pointer; text-transform: uppercase;">ОК</button>
+            <button id="btn-install" style="background: #e2b04a; border: none; padding: 8px 12px; border-radius: 20px; color: black; font-weight: bold; font-size: 0.75rem;">ОК</button>
         </div>
     </div>
 
     <script>
-        // 1. ИСПРАВЛЕННАЯ РЕГИСТРАЦИЯ Service Worker ДЛЯ /app/
+        // --- 1. ПРОВЕРКА ОБЪЯВЛЕНИЙ С КЭШЕМ (30 МИНУТ) ---
+        (async function checkAdsImmediately() {
+            const scriptUrl = 'https://script.google.com/macros/s/AKfycbwzj6dq4_XP1GjZdPeMoR-M817V-3aldnPf9BfeUpleQHEB7sbfW7XCfTtQ08MFoKah/exec';
+            const CACHE_KEY = 'ads_button_cache';
+            const CACHE_TIME = 30 * 60 * 1000; // 30 минут
+            
+            const cached = localStorage.getItem(CACHE_KEY);
+            const now = Date.now();
+
+            if (cached) {
+                const cacheData = JSON.parse(cached);
+                if (now - cacheData.timestamp < CACHE_TIME) {
+                    if (cacheData.show) document.getElementById('ads-trigger-container').style.display = 'block';
+                    return;
+                }
+            }
+
+            try {
+                const response = await fetch(scriptUrl + '?t=' + now);
+                const data = await response.json();
+                const shouldShow = !!(data && data.showButton);
+                
+                if (shouldShow) document.getElementById('ads-trigger-container').style.display = 'block';
+                
+                localStorage.setItem(CACHE_KEY, JSON.stringify({
+                    timestamp: now,
+                    show: shouldShow
+                }));
+            } catch (e) { console.warn("Фоновая проверка объявлений не удалась"); }
+        })();
+
+        // --- 2. ОБНОВЛЕННЫЙ ТОЧНЫЙ РАСЧЕТ ЗАХОДА СОЛНЦА (МОСКВА) ---
+        function getSunset(date) {
+            const lat = 55.7532; 
+            const lng = 37.6225;
+            const timezone = 3; // MSK UTC+3
+            
+            const PI = Math.PI;
+            const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000);
+            
+            // Расчет зенита (стандартный заход с учетом рефракции)
+            const zenith = 90.833 * PI / 180;
+            
+            // 1. Приблизительное время в днях
+            const lngHour = lng / 15;
+            const t = dayOfYear + ((18 - lngHour) / 24);
+            
+            // 2. Средняя аномалия Солнца
+            const M = (0.9856 * t) - 3.289;
+            
+            // 3. Истинная долгота Солнца
+            let L = M + (1.916 * Math.sin(M * PI / 180)) + (0.020 * Math.sin(2 * M * PI / 180)) + 282.634;
+            L = (L + 360) % 360;
+            
+            // 4. Прямое восхождение
+            let RA = Math.atan(0.91764 * Math.tan(L * PI / 180)) * 180 / PI;
+            RA = (RA + 360) % 360;
+            
+            // Подгонка квадранта
+            const Lquadrant  = (Math.floor(L / 90)) * 90;
+            const RAquadrant = (Math.floor(RA / 90)) * 90;
+            RA = (RA + (Lquadrant - RAquadrant)) / 15;
+            
+            // 5. Склонение
+            const sinDec = 0.39782 * Math.sin(L * PI / 180);
+            const cosDec = Math.cos(Math.asin(sinDec));
+            
+            // 6. Часовой угол
+            const cosH = (Math.cos(zenith) - (sinDec * Math.sin(lat * PI / 180))) / (cosDec * Math.cos(lat * PI / 180));
+            
+            if (cosH > 1) return "Не заходит";
+            if (cosH < -1) return "Не восходит";
+            
+            const H = Math.acos(cosH) * 180 / PI / 15;
+            
+            // 7. Местное время (UTC)
+            const T = H + RA - (0.06571 * t) - 6.622;
+            let UT = (T - lngHour + 24) % 24;
+            
+            // 8. Перевод в МСК
+            let localTime = (UT + timezone) % 24;
+            
+            const h = Math.floor(localTime);
+            const m = Math.round((localTime - h) * 60);
+            
+            // Если округление дало 60 минут
+            if (m === 60) return `${(h + 1) % 24}:00`;
+            return `${h}:${m < 10 ? '0' + m : m}`;
+        }
+
+        function initSunset() {
+            const now = new Date();
+            const day = now.getDay(); 
+            let target = new Date(now);
+            const dateOptions = { day: 'numeric', month: 'long' };
+            const formattedDate = (d) => d.toLocaleDateString('ru-RU', dateOptions).toUpperCase();
+
+            // Если сегодня суббота, показываем сегодняшний заход
+            if (day === 6) {
+                document.getElementById('sunset-label').innerText = "ЗАХОД СОЛНЦА СЕГОДНЯ (" + formattedDate(target) + ")";
+                document.querySelector('.sunset-container').style.boxShadow = "0 0 15px rgba(226, 176, 74, 0.2)";
+            } else {
+                // Иначе ищем ближайшую пятницу
+                let diff = (5 - day + 7) % 7;
+                target.setDate(now.getDate() + diff);
+                document.getElementById('sunset-label').innerText = "НАЧАЛО СУББОТЫ (ПЯТНИЦА, " + formattedDate(target) + ")";
+            }
+            
+            // Устанавливаем 12:00 для исключения ошибок смены даты при расчете
+            target.setHours(12, 0, 0, 0);
+            document.getElementById('sunset-display').innerText = getSunset(target);
+        }
+        initSunset();
+
+        // --- 3. ЛОГИКА ЛОАДЕРА ---
+        const quotes = [
+            { text: "«Будь тверд и очень мужествен... ибо с тобою Господь Бог твой везде, куда ни пойдешь»", ref: "Иисус Навин 1:9" },
+            { text: "«Да не смущается сердце ваше... Я приду опять и возьму вас к Себе»", ref: "Иоанна 14:1-3" },
+            { text: "«Господь — свет мой и спасение мое: кого мне бояться?»", ref: "Псалом 26:1" },
+            { text: "«Се, грядет с облаками, и узрит Его всякое око»", ref: "Откровение 1:7" },
+            { text: "«Итак, бодрствуйте, потому что не знаете, в который час Господь ваш приидет»", ref: "Матфея 24:42" },
+            { text: "«И отрет Бог всякую слезу с очей их, и смерти не будет уже»", ref: "Откровение 21:4" },
+            { text: "«Ибо только Я знаю намерения, какие имею о вас... намерения во благо, а не на зло»", ref: "Иеремия 29:11" },
+            { text: "«Придите ко Мне все труждающиеся и обремененные, и Я успокою вас»", ref: "Матфея 11:28" },
+            { text: "«Наше же жительство — на небесах, откуда мы ожидаем и Спасителя»", ref: "Филиппийцам 3:20" }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('loader-wrapper');
+            if (!sessionStorage.getItem('firstLoadDone')) {
+                const q = quotes[Math.floor(Math.random() * quotes.length)];
+                document.getElementById('bible-quote').innerText = q.text;
+                document.getElementById('bible-ref').innerText = q.ref;
+                setTimeout(() => {
+                    loader.classList.add('loader-hidden');
+                    sessionStorage.setItem('firstLoadDone', 'true');
+                }, 3000);
+            } else {
+                loader.style.display = 'none';
+            }
+        });
+
+        // --- 4. ВСПОМОГАТЕЛЬНОЕ (ГОД, PWA) ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/app/sw.js', { scope: '/app/' })
-                    .then(() => console.log('SW зарегистрирован для /app/'))
-                    .catch(err => console.log('SW error:', err));
+                navigator.serviceWorker.register('/sw.js').catch(() => {});
             });
         }
 
-        // 2. Логика баннера установки
         let deferredPrompt;
-        const installBanner = document.getElementById('install-banner');
-        const btnInstall = document.getElementById('btn-install');
-
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             setTimeout(() => {
                 if (!window.matchMedia('(display-mode: standalone)').matches) {
-                    installBanner.style.display = 'block';
+                    document.getElementById('install-banner').style.display = 'block';
                 }
-            }, 3000);
+            }, 6000);
         });
 
-        btnInstall.addEventListener('click', () => {
+        document.getElementById('btn-install').addEventListener('click', () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then(() => {
-                    installBanner.style.display = 'none';
+                    document.getElementById('install-banner').style.display = 'none';
                     deferredPrompt = null;
                 });
-            }
-        });
-
-        // 3. Логика анимации загрузки и цитат
-        window.addEventListener('DOMContentLoaded', () => {
-            const loader = document.getElementById('loader-wrapper');
-            const quoteElement = document.getElementById('bible-quote');
-            const refElement = document.getElementById('bible-ref');
-
-            const quotes = [
-                { text: "«Будь тверд и очень мужествен... ибо с тобою Господь Бог твой везде, куда ни пойдешь»", ref: "Иисус Навин 1:9" },
-                { text: "«Да не смущается сердце ваше... Я приду опять и возьму вас к Себе»", ref: "Иоанна 14:1-3" },
-                { text: "«Господь — свет мой и спасение мое: кого мне бояться?»", ref: "Псалом 26:1" },
-                { text: "«Се, грядет с облаками, и узрит Его всякое око»", ref: "Откровение 1:7" },
-                { text: "«Итак, бодрствуйте, потому что не знаете, в который час Господь ваш приидет»", ref: "Матфея 24:42" },
-                { text: "«И отрет Бог всякую слезу с очей их, и смерти не будет уже»", ref: "Откровение 21:4" },
-                { text: "«Ибо только Я знаю намерения, какие имею о вас... намерения во благо, а не на зло»", ref: "Иеремия 29:11" },
-                { text: "«Придите ко Мне все труждающиеся и обремененные, и Я успокою вас»", ref: "Матфея 11:28" },
-                { text: "«Наше же жительство — на небесах, откуда мы ожидаем и Спасителя»", ref: "Филиппийцам 3:20" }
-            ];
-
-            function setRandomQuote() {
-                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                quoteElement.innerText = randomQuote.text;
-                refElement.innerText = randomQuote.ref;
-            }
-
-            if (!sessionStorage.getItem('firstLoadDone')) {
-                setRandomQuote();
-                setTimeout(() => {
-                    loader.classList.add('loader-hidden');
-                    sessionStorage.setItem('firstLoadDone', 'true');
-                }, 4500);
-            } else {
-                loader.style.display = 'none';
             }
         });
     </script>
