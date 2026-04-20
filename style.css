@@ -87,6 +87,51 @@ h1 {
     transform: scale(0.98);
 }
 
+/* СТИЛИ ДЛЯ ПЛЕЕРОВ (Добавлено) */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    border-radius: 14px;
+    border: 1px solid #222;
+    margin: 10px 0 25px 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0; left: 0; width: 100% !important; height: 100% !important;
+    border: none;
+}
+
+.section-label {
+    display: block;
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    letter-spacing: 1px;
+}
+
+.live-info {
+    background: rgba(226, 176, 74, 0.1);
+    border: 1px solid rgba(226, 176, 74, 0.3);
+    padding: 15px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+}
+
+.time-display {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #e2b04a;
+    display: block;
+}
+
 /* РАЗДЕЛИТЕЛИ */
 .divider {
     margin: 25px 0 15px;
@@ -100,7 +145,6 @@ h1 {
 .divider::after, .divider::before {
     content: ""; flex: 1; height: 1px; background: #222; margin: 0 15px;
 }
-
 /* КАРТОЧКИ (ДЛЯ 12 СТРАНИЦЫ) */
 .info-card {
     background: #111;

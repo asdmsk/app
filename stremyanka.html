@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Трансляция: На Стремянном</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="logo.png" alt="Логотип" class="main-logo">
+            </div>
+            <h1>НА СТРЕМЯННОМ</h1>
+        </header>
+
+        <div class="live-info">
+            <span style="opacity: 0.8; font-size: 0.8rem;">ВРЕМЯ НАЧАЛА:</span>
+            <span id="live-time" class="time-display">...</span>
+        </div>
+
+        <div class="channel-row">
+            <a href="https://rutube.ru/channel/24704952/" class="btn" target="_blank">
+                <i class="fas fa-play-circle"></i><span>RUTUBE</span>
+            </a>
+            <a href="https://www.youtube.com/c/asdstremianka/live" class="btn" target="_blank">
+                <i class="fab fa-youtube"></i><span>YOUTUBE</span>
+            </a>
+        </div>
+
+        <span class="section-label">Плеер Rutube: <span id="rutube-status" class="status-badge">СИНХРОНИЗАЦИЯ...</span></span>
+        <div class="video-container">
+            <iframe id="rutubePlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+        </div>
+
+        <span class="section-label">Плеер YouTube:</span>
+        <div class="video-container">
+            <iframe allowfullscreen frameborder="0" src="//www.youtube.com/embed/live_stream?channel=UC93Fr_uHbGHLPk713WCG55w&rel=0&autoplay=1&vq=hd720"></iframe>
+        </div>
+
+        <nav>
+            <a href="index.html" class="btn" style="justify-content: center;">
+                <i class="fas fa-arrow-left"></i><span>НА ГЛАВНУЮ</span>
+            </a>
+        </nav>
+
+        <footer>
+            <p>© 2026 Община на Стремянном</p>
+        </footer>
+    </div>
+
+    <script>
+        // 1. Определение времени и дня недели
+        const now = new Date();
+        const isSaturday = (now.getDay() === 6); // 6 - суббота
+        const year = now.getFullYear();
+        document.getElementById('live-time').innerText = (year % 2 === 0) ? "Суббота 10:30" : "Суббота 14:30";
+
+        // 2. Загрузка данных из нового вебхука
+        async function loadContent() {
+            const player = document.getElementById('rutubePlayer');
+            const statusEl = document.getElementById('rutube-status');
+            
+            // Ваш новый вебхук
+            const apiUrl = 'https://script.google.com/macros/s/AKfycbxF635vQvSP0QTBJ4QdpfnbndTehP2RM1h9UDNAFvtneKexRUOyuLSImdvwivXIrQUR/exec';
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (isSaturday) {
+                    // СУББОТА: показываем трансляцию/концерт
+                    if (data.liveId) {
+                        player.src = `https://rutube.ru/play/embed/${data.liveId}/?skinColor=d57700`;
+                        statusEl.innerText = "ПРЯМОЙ ЭФИР / КОНЦЕРТ";
+                        statusEl.style.color = "#00ff00";
+                    } else {
+                        statusEl.innerText = "ЭФИР НЕ НАЙДЕН";
+                    }
+                } else {
+                    // БУДНИ: показываем последнюю проповедь
+                    if (data.sermonId) {
+                        player.src = `https://rutube.ru/play/embed/${data.sermonId}/?skinColor=d57700`;
+                        statusEl.innerText = "ПРОПОВЕДЬ ПРОШЕДШЕЙ СУББОТЫ";
+                        statusEl.style.color = "#e2b04a";
+                    } else {
+                        statusEl.innerText = "ПРОПОВЕДЬ НЕ НАЙДЕНА";
+                    }
+                }
+
+            } catch (e) {
+                console.error("Ошибка загрузки данных вебхука:", e);
+                statusEl.innerText = "ОШИБКА ПОДКЛЮЧЕНИЯ";
+            }
+        }
+
+        loadContent();
+    </script>
+</body>
+</html>

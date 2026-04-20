@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106917530', 'ym');
+    ym(106917530, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прямые трансляции общин</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        .main-video-container {
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: #000;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            margin-bottom: 25px;
+            border: 1px solid #222;
+        }
+        .video-ratio {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            background: #000;
+        }
+        .video-ratio iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+        }
+        .current-title {
+            padding: 12px 15px;
+            background: #111;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #222;
+            color: #e2b04a;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .search-box {
+            width: 100%;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            border: 1px solid #222;
+            background: #111;
+            color: white;
+            outline: none;
+            font-size: 1rem;
+        }
+        .search-box:focus { border-color: #e2b04a; }
+
+        .links-grid { display: grid; gap: 10px; }
+        .btn-item {
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            background: #111;
+            color: white;
+            border: 1px solid #222;
+            padding: 12px 15px;
+            border-radius: 12px;
+            transition: 0.2s;
+            width: 100%;
+        }
+        .btn-item i { margin-right: 15px; font-size: 1.2rem; min-width: 25px; text-align: center; color: #e2b04a; }
+        .btn-item.active {
+            border-color: #e2b04a;
+            background: rgba(226, 176, 74, 0.1);
+        }
+        .time-info { font-size: 0.75rem; opacity: 0.6; display: block; margin-top: 2px; color: #fff; }
+        .loading-spinner { margin-left: 8px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <header>
+            <h1>ЦЕРКОВЬ В ЭФИРЕ</h1>
+        </header>
+
+        <div class="main-video-container">
+            <div id="videoTitle" class="current-title">ВЫБЕРИТЕ ОБЩИНУ</div>
+            <div class="video-ratio">
+                <iframe id="mainPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <input type="text" id="searchInput" class="search-box" placeholder="Поиск общины..." onkeyup="filterLinks()">
+
+        <div id="linksList" class="links-grid">
+            <button class="btn-item" onclick="handleButtonClick('24704952', 'На Стремянном', '1063991', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>На Стремянном<br><small class="time-info" id="time-stremyanka">Загрузка...</small></span>
+            </button>
+
+            <button class="btn-item" onclick="handleButtonClick('57144766', 'Замоскворецкая', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Замоскворецкая<br><small class="time-info" id="time-zamo">Загрузка...</small></span>
+            </button>
+
+            <button class="btn-item" onclick="handleButtonClick('57001633', 'Заокская церковь', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Заокская церковь<br><small class="time-info">Суббота 10:00</small></span>
+            </button>
+
+            <button class="btn-item" onclick="handleButtonClick('58723966', 'Община «Восточная»', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Община «Восточная»<br><small class="time-info">Суббота 10:00</small></span>
+            </button>
+
+            <button class="btn-item" onclick="handleButtonClick('41173758', 'Община «Тушинская»', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Община «Тушинская»<br><small class="time-info">Суббота 11:00</small></span>
+            </button>
+            
+            <button class="btn-item" onclick="handleButtonClick('38687280', 'Община «Имя Твоё»', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Община «Имя Твоё»<br><small class="time-info">Суббота 11:00</small></span>
+            </button>
+            
+            <button class="btn-item" onclick="handleButtonClick('19643991', 'Община «Орион»', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Община «Орион»<br><small class="time-info">Суббота 10:00</small></span>
+            </button>
+
+            <button class="btn-item" onclick="handleButtonClick('26175939', 'Община «Факел»', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Община «Факел»<br><small class="time-info">Суббота 14:30</small></span>
+            </button>
+
+            <button class="btn-item" onclick="handleButtonClick('38736209', 'Адвентисты Липецка', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Адвентисты Липецка<br><small class="time-info">Суббота 10:00</small></span>
+            </button>
+
+            <button class="btn-item" onclick="handleButtonClick('54734636', 'Община «Родник»', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Община «Родник»<br><small class="time-info">Суббота 11:00</small></span>
+            </button>
+
+            <button class="btn-item" onclick="handleButtonClick('52454594', 'Подольская община', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Подольская община<br><small class="time-info">Суббота 10:00</small></span>
+            </button>
+
+            <button class="btn-item" onclick="handleButtonClick('48855183', 'На языке жестов', '', this)">
+                <i class="fas fa-hands"></i>
+                <span>На языке жестов<br><small class="time-info">Суббота 10:00</small></span>
+            </button>
+
+            <button class="btn-item" onclick="handleButtonClick('19062976', 'Реутовская община', '', this)">
+                <i class="fas fa-play-circle"></i>
+                <span>Реутовская община<br><small class="time-info">Суббота 10:30</small></span>
+            </button>
+        </div>
+
+        <nav style="margin-top: 30px;">
+            <a href="index.html" class="btn-item" style="justify-content: center !important;">
+                <i class="fas fa-arrow-left"></i><span>НА ГЛАВНУЮ</span>
+            </a>
+        </nav>
+
+        <footer>
+            <p>© 2026 Община на Стремянном</p>
+        </footer>
+    </div>
+
+    <script>
+        // Функция поиска эфира
+        async function fetchRutubeId(channelId) {
+            try {
+                const proxyUrl = 'https://api.allorigins.win/get?url=';
+                const targetUrl = encodeURIComponent('https://rutube.ru/channel/' + channelId + '/');
+                const response = await fetch(proxyUrl + targetUrl);
+                const data = await response.json();
+                const html = data.contents;
+                const match = html.match(/rutube\.ru\/play\/embed\/([a-z0-9]{32})/);
+                return match ? match[1] : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // Клик по кнопке
+        async function handleButtonClick(channelId, name, playlistId, element) {
+            const title = document.getElementById('videoTitle');
+            const player = document.getElementById('mainPlayer');
+            
+            // Визуальный отклик
+            document.querySelectorAll('.btn-item').forEach(b => b.classList.remove('active'));
+            if(element) element.classList.add('active');
+
+            title.innerHTML = `ИЩЕМ ЭФИР: ${name.toUpperCase()} <i class="fas fa-circle-notch fa-spin loading-spinner"></i>`;
+            
+            const videoId = await fetchRutubeId(channelId);
+            
+            if (videoId) {
+                player.src = `https://rutube.ru/play/embed/${videoId}/?skinColor=d57700&autoplay=1`;
+                title.innerText = "ПРЯМОЙ ЭФИР: " + name.toUpperCase();
+            } else if (playlistId) {
+                // Если эфира нет, но есть плейлист (как у Стремянки)
+                player.src = `https://rutube.ru/play/embed/playlist/${playlistId}/?skinColor=d57700`;
+                title.innerText = "АРХИВ: " + name.toUpperCase();
+            } else {
+                // Если нет ни эфира, ни плейлиста, отправляем на канал
+                player.src = `https://rutube.ru/play/embed/playlist/1063991/?skinColor=d57700`; // Общий резерв
+                title.innerText = name.toUpperCase() + " (ЭФИР НЕ НАЙДЕН)";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setActualTime() {
+            const year = new Date().getFullYear();
+            const stremyanka = document.getElementById('time-stremyanka');
+            const zamo = document.getElementById('time-zamo');
+            if (year % 2 === 0) {
+                stremyanka.innerText = "Суббота 10:30"; zamo.innerText = "Суббота 14:30";
+            } else {
+                stremyanka.innerText = "Суббота 14:30"; zamo.innerText = "Суббота 10:30";
+            }
+        }
+
+        function filterLinks() {
+            let filter = document.getElementById('searchInput').value.toLowerCase();
+            let buttons = document.querySelectorAll('#linksList .btn-item');
+            buttons.forEach(btn => {
+                btn.style.display = btn.innerText.toLowerCase().includes(filter) ? "" : "none";
+            });
+        }
+
+        window.onload = function() {
+            setActualTime();
+            // Автозапуск первой общины
+            const firstBtn = document.querySelector('#linksList .btn-item');
+            handleButtonClick('24704952', 'На Стремянном', '1063991', firstBtn);
+        };
+    </script>
+</body>
+</html>
