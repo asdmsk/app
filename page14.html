@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <title>Объявления | АСД</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body { 
+            background: #000; margin: 0; padding: 0; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: #fff; padding-bottom: 110px; 
+        }
+
+        .container { width: 100%; max-width: 600px; margin: 0 auto; padding: 15px; box-sizing: border-box; }
+
+        /* Карточки объявлений */
+        .ad-card {
+            background: #0a0a0a; border: 1px solid #e2b04a;
+            border-radius: 12px; padding: 18px; margin-bottom: 20px;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .ad-title { color: #e2b04a; font-size: 1rem; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; border-bottom: 1px solid #222; padding-bottom: 6px; }
+        .ad-text { line-height: 1.5; color: #bbb; white-space: pre-wrap; font-size: 0.9rem; }
+        
+        /* Сетка ссылок в объявлении */
+        .links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 15px; }
+
+        .ad-link-btn {
+            background: transparent; color: #e2b04a;
+            text-decoration: none; padding: 8px 2px; border-radius: 6px;
+            text-align: center; font-weight: bold; font-size: 0.65rem;
+            border: 1px solid #e2b04a; display: flex; flex-direction: column; align-items: center; gap: 3px;
+        }
+
+        .ad-link-btn i { font-size: 0.9rem; }
+        .ad-link-btn:active { background: rgba(226, 176, 74, 0.2); }
+
+        /* Фиксированная панель подписки внизу */
+        .fixed-bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #333;
+            padding: 10px 15px 25px 15px;
+            display: flex; flex-direction: column; align-items: center;
+            box-sizing: border-box; z-index: 9999;
+        }
+
+        .nav-label {
+            color: #666; font-size: 0.65rem; font-weight: bold; 
+            letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase;
+        }
+
+        .nav-buttons-row {
+            display: flex; justify-content: center; gap: 12px; width: 100%;
+        }
+
+        .nav-btn {
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; padding: 10px 15px; border-radius: 8px;
+            text-decoration: none; font-weight: bold; font-size: 0.7rem;
+            border: 1px solid #e2b04a; color: #e2b04a;
+            background: transparent; transition: 0.2s; min-width: 130px;
+        }
+
+        .nav-btn:active { background: #e2b04a; color: #000; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .back-link { display: inline-flex; align-items: center; gap: 5px; color: #e2b04a; text-decoration: none; margin-bottom: 15px; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <a href="index.html" class="back-link"><i class="fas fa-chevron-left"></i> На главную</a>
+        <h2 style="color: #e2b04a; margin: 0; font-size: 1.3rem;">ОБЪЯВЛЕНИЯ</h2>
+        <p style="color: #666; font-size: 0.7rem; margin-bottom: 20px;">Московское объединение</p>
+    </header>
+
+    <div id="loader" style="color: #444; margin-top: 40px; text-align: center; font-size: 0.8rem;">Загрузка актуальных новостей...</div>
+    <div id="ads-list"></div>
+
+    <footer style="margin-top: 30px; color: #333; font-size: 0.65rem; text-align: center;">
+        © <span id="year"></span> Община на Стремянном
+    </footer>
+</div>
+
+<div class="fixed-bottom-nav">
+    <div class="nav-label">Подписаться на объявления</div>
+    <div class="nav-buttons-row">
+        <a href="https://forms.gle/VUm5cB16Bes51hSs8" target="_blank" class="nav-btn">
+            <i class="fas fa-envelope"></i> ПО ПОЧТЕ (EMAIL)
+        </a>
+        <a href="https://t.me/rupor_mo" target="_blank" class="nav-btn">
+            <i class="fab fa-telegram-plane"></i> В TELEGRAM
+        </a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwzj6dq4_XP1GjZdPeMoR-M817V-3aldnPf9BfeUpleQHEB7sbfW7XCfTtQ08MFoKah/exec'; 
+    const CACHE_KEY = 'ads_cache_data';
+    const CACHE_TIME = 10 * 60 * 1000; // 10 минут
+
+    function renderAds(data) {
+        const list = document.getElementById('ads-list');
+        list.innerHTML = '';
+        document.getElementById('loader').style.display = 'none';
+
+        data.forEach(ad => {
+            const card = document.createElement('div');
+            card.className = 'ad-card';
+            
+            let text = ad.description;
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            const urls = text.match(urlRegex);
+            
+            let linksHtml = '';
+            if (urls) {
+                linksHtml = '<div class="links-grid">';
+                urls.forEach((url, index) => {
+                    let isYoutube = url.includes('youtube.com') || url.includes('youtu.be');
+                    let icon = isYoutube ? 'fa-brands fa-youtube' : 'fa-solid fa-play-circle';
+                    
+                    linksHtml += `
+                        <a href="${url}" target="_blank" class="ad-link-btn">
+                            <i class="${icon}"></i>
+                            ${isYoutube ? 'СМОТРЕТЬ' : 'ПЕРЕЙТИ'}
+                        </a>`;
+                    text = text.replace(url, ""); 
+                });
+                linksHtml += '</div>';
+            }
+
+            card.innerHTML = `<div class="ad-title">${ad.title}</div><div class="ad-text">${text.trim()}</div>${linksHtml}`;
+            list.appendChild(card);
+        });
+    }
+
+    async function loadAds() {
+        const cached = localStorage.getItem(CACHE_KEY);
+        const now = Date.now();
+
+        if (cached) {
+            const cacheData = JSON.parse(cached);
+            if (now - cacheData.timestamp < CACHE_TIME) {
+                renderAds(cacheData.items);
+                return;
+            }
+        }
+
+        try {
+            const response = await fetch(scriptUrl + '?full=true&t=' + now);
+            const data = await response.json();
+            
+            localStorage.setItem(CACHE_KEY, JSON.stringify({
+                timestamp: now,
+                items: data
+            }));
+
+            renderAds(data);
+        } catch (e) {
+            if (cached) {
+                renderAds(JSON.parse(cached).items);
+            } else {
+                document.getElementById('loader').innerText = "На данный момент новостей нет.";
+            }
+        }
+    }
+
+    window.onload = loadAds;
+</script>
+
+</body>
+</html>
